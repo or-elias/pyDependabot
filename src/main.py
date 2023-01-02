@@ -10,7 +10,6 @@ class RepositoryVulnerablityAlertQuery(object):
 
 
 
-
 class Dependabot():
 	def __init__(self, auth_token, graphql_endpoint, print_debug_log=False):
 		self.debug = print_debug_log
@@ -19,8 +18,8 @@ class Dependabot():
 		print(f"Successfully created a graphql client") if self.debug is True else None
 
 
-
-	def get_security_alerts(self, repository_owner: str, repository_name: str, fields=[RepositoryVulnerablityAlertQuery.securityVulnerabilityField, RepositoryVulnerablityAlertQuery.createdAtField]):
+	def get_security_alerts(self, repository_owner: str, repository_name: str,
+							fields=[RepositoryVulnerablityAlertQuery.securityVulnerabilityField, RepositoryVulnerablityAlertQuery.createdAtField]):
 		# for more information please read the official docs - https://github.com/or-elias/pyDependabot
 		#
 		# Input parameters:
@@ -32,14 +31,7 @@ class Dependabot():
 		#	for now the function returns a list of raw nodes as returned from the server. 
 		#	also, if we received a graphql error from github (for example, NOT FOUND), we let the gql.transport.exceptions.TransportQueryError excption to be raised.
 		#
-
-
 		return self._query_api_for_repositories_vulnerablities(repository_owner, repository_name, fields)
-		
-		
-
-
-
 
 
 	def _query_api_for_repositories_vulnerablities(self, repository_owner, repository_name, fields, after=None, current_results=[]) -> list[dict]:
@@ -52,10 +44,11 @@ class Dependabot():
 			query GetRepositoryDependabotAlerts ($name: String!, $owner: String!, $after: String) {{ 
 					repository( name: $name, owner: $owner) {{
 																 
-																vulnerabilityAlerts(first: 99, after: $after) {{  
-																									pageInfo {{ hasNextPage, endCursor }} ,
-																									nodes{{ {','.join(fields)} }} }}
-															}} 	
+						vulnerabilityAlerts(first: 99, after: $after) {{  
+							pageInfo {{ hasNextPage, endCursor }} ,
+							nodes{{ {','.join(fields)} }} 
+						}}
+					}} 	
 			}}
 		"""
 		vars = {"name": repository_name, "owner":repository_owner, "after": after}
