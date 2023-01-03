@@ -1,14 +1,6 @@
 from gql import gql, Client
 from gql.transport.requests import RequestsHTTPTransport
-
-
-class RepositoryVulnerablityAlertQuery(object):
-	createdAtField = "createdAt"
-	securityVulnerabilityField = " securityVulnerability { severity }  "
-	dismissedAtField = "dismissedAt"
-
-
-
+from repository_vulnerablity_alert_query import RepositoryVulnerablityAlertQuery
 
 class Dependabot():
 	def __init__(self, auth_token, graphql_endpoint, print_debug_log=False):
@@ -19,7 +11,13 @@ class Dependabot():
 
 
 	def get_security_alerts(self, repository_owner: str, repository_name: str,
-							fields=[RepositoryVulnerablityAlertQuery.securityVulnerabilityField, RepositoryVulnerablityAlertQuery.createdAtField]):
+							fields=[RepositoryVulnerablityAlertQuery.securityVulnerabilityField,
+								   RepositoryVulnerablityAlertQuery.stateField,
+								   RepositoryVulnerablityAlertQuery.createdAtField,
+								   RepositoryVulnerablityAlertQuery.vulnerableManifestPathField,
+								   RepositoryVulnerablityAlertQuery.vulnerableRequirementsField
+								    ]):
+
 		# for more information please read the official docs - https://github.com/or-elias/pyDependabot
 		#
 		# Input parameters:
