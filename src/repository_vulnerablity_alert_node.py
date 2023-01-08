@@ -1,5 +1,8 @@
 from datetime import datetime
+from packaging import version
+
 from utils import get_if_possible
+
 
 class securityVulnerability(object):
 	def __init__(self):
@@ -33,13 +36,17 @@ class RepositoryVulnerablityAlert(object):
 	def securityVulnerability(self):
 		security_vulnerability = securityVulnerability()
 		security_vulnerability.severity = get_if_possible("securityVulnerability.severity", self.node)
-		security_vulnerability.first_patched_version = get_if_possible("securityVulnerability.firstPatchedVersion.identifier", self.node) # make version object
-		security_vulnerability.updated_at = get_if_possible("securityVulnerability.updatedAt", self.node) # make datetime
 		security_vulnerability.package_ecosystem = get_if_possible("securityVulnerability.package.ecosystem", self.node)
 		security_vulnerability.package_name = get_if_possible("securityVulnerability.package.name", self.node)
 		security_vulnerability.vulnerable_version_range = get_if_possible("securityVulnerability.vulnerableVersionRange", self.node)
 		security_vulnerability.advisory_cvss_score = get_if_possible("securityVulnerability.advisory.cvss.score", self.node)
 		security_vulnerability.advisory_summary = get_if_possible("securityVulnerability.advisory.summary", self.node)
+		
+		first_patched_version = get_if_possible("securityVulnerability.firstPatchedVersion.identifier", self.node) 
+		security_vulnerability.first_patched_version = version.parse(first_patched_version) if first_patched_version is not None else None
+		
+		updated_at = get_if_possible("securityVulnerability.updatedAt", self.node) 
+		security_vulnerability.updated_at = datetime.strptime(updated_at, "%Y-%m-%dT%H:%M:%SZ") if updated_at is not None else None
 		
 		return security_vulnerability
 
