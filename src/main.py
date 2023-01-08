@@ -13,7 +13,7 @@ class Dependabot():
 
 
 	def get_security_alerts(self, repository_owner: str, repository_name: str,
-							fields=[RepositoryVulnerablityAlertQuery.securityVulnerabilityField, RepositoryVulnerablityAlertQuery.stateField]):
+							fields=[RepositoryVulnerablityAlertQuery.securityVulnerabilityField, RepositoryVulnerablityAlertQuery.createdAtField]):
 
 		# for more information please read the official docs - https://github.com/or-elias/pyDependabot
 		#

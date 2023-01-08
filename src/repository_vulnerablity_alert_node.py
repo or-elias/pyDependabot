@@ -103,3 +103,6 @@ class RepositoryVulnerablityAlert(object):
 	@property
 	def number(self):
 		return self.node.get("number")
+	
+	def __repr__(self):
+		return f"""(Repository:{self.repository_owner}/{self.repository_name}, Package:{self.securityVulnerability.package_name}:{self.securityVulnerability.severity}-severity)"""
