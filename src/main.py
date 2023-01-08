@@ -1,6 +1,8 @@
 from gql import gql, Client
 from gql.transport.requests import RequestsHTTPTransport
 from repository_vulnerablity_alert_query import RepositoryVulnerablityAlertQuery
+from repository_vulnerablity_alert_node import RepositoryVulnerablityAlert
+
 
 class Dependabot():
 	def __init__(self, auth_token, graphql_endpoint, print_debug_log=False):
@@ -11,12 +13,7 @@ class Dependabot():
 
 
 	def get_security_alerts(self, repository_owner: str, repository_name: str,
-							fields=[RepositoryVulnerablityAlertQuery.securityVulnerabilityField,
-								   RepositoryVulnerablityAlertQuery.stateField,
-								   RepositoryVulnerablityAlertQuery.createdAtField,
-								   RepositoryVulnerablityAlertQuery.vulnerableManifestPathField,
-								   RepositoryVulnerablityAlertQuery.vulnerableRequirementsField
-								    ]):
+							fields=[RepositoryVulnerablityAlertQuery.securityVulnerabilityField, RepositoryVulnerablityAlertQuery.createdAtField]):
 
 		# for more information please read the official docs - https://github.com/or-elias/pyDependabot
 		#
@@ -29,7 +26,12 @@ class Dependabot():
 		#	for now the function returns a list of raw nodes as returned from the server. 
 		#	also, if we received a graphql error from github (for example, NOT FOUND), we let the gql.transport.exceptions.TransportQueryError excption to be raised.
 		#
-		return self._query_api_for_repositories_vulnerablities(repository_owner, repository_name, fields)
+		if len(fields) == 0:
+			raise Exception("GraphQL query must fetch at least one field. Got empty list of fields")
+		raw_nodes_from_dependabot = self._query_api_for_repositories_vulnerablities(repository_owner, repository_name, fields)
+		return [RepositoryVulnerablityAlert(node, repository_owner, repository_name) for node in raw_nodes_from_dependabot]
+		
+
 
 
 	def _query_api_for_repositories_vulnerablities(self, repository_owner, repository_name, fields, after=None, current_results=[]) -> list[dict]:
