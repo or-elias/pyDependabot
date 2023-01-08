@@ -12,7 +12,6 @@ class RepositoryVulnerablityAlertQuery(object):
 									}  """
 
 	dismissedAtField = "dismissedAt"
-	dependencyScopeField = "dependencyScope"
 	dismissCommentField = "dismissComment"
 	dismissReasonField = "dismissReason"
 	dismisserField = "dismisser { email, name, login, url }" # requires  ['user:email', 'read:user'] permissions
@@ -22,3 +21,4 @@ class RepositoryVulnerablityAlertQuery(object):
 	vulnerableManifestFilenameField = "vulnerableManifestFilename"
 	vulnerableManifestPathField = "vulnerableManifestPath"
 	vulnerableRequirementsField =  "vulnerableRequirements"
+
