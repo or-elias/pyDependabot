@@ -24,8 +24,21 @@ To simply query your current Dependabot alert -
 
 import Dependabot from pyDependabot 
 
-d = Dependabot("TOKEN", "https://api.github.com/graphql")
-depedanbot_alerts = d.get_security_alerts(auth_token='or-elias', graphql_endpoint='pyDependabot')
+d = Dependabot(auth_token="TOKEN",  graphql_endpoint="https://api.github.com/graphql")
+depedanbot_alerts = d.get_security_alerts(repository_owner='or-elias',repository_name='pyDependabot')
+
+print(depedanbot_alerts)
+```
+
+If you need to query different fields you can specify that on the get_security_alerts function call.
+All of the the possible fields are listed on the repository_vulnerablity_alert_query.py file
+```python
+
+import Dependabot from pyDependabot 
+from pyDependabot.repository_vulnerablity_alert_query import RepositoryVulnerablityAlertQuery
+
+d = Dependabot(auth_token="TOKEN",  graphql_endpoint="https://api.github.com/graphql")
+depedanbot_alerts = d.get_security_alerts(repository_owner='or-elias',repository_name='pyDependabot', fields=[RepositoryVulnerablityAlertQuery.dismissCommentField])
 
 print(depedanbot_alerts)
 ```
