@@ -1,7 +1,7 @@
 from gql import gql, Client
 from gql.transport.requests import RequestsHTTPTransport
-from repository_vulnerablity_alert_query import RepositoryVulnerablityAlertQuery
-from repository_vulnerablity_alert_node import RepositoryVulnerablityAlert
+from pyDependabot.repository_vulnerablity_alert_query import RepositoryVulnerablityAlertQuery
+from pyDependabot.repository_vulnerablity_alert_node import RepositoryVulnerablityAlert
 
 
 class Dependabot():
@@ -62,4 +62,4 @@ class Dependabot():
 			return current_results+nodes
 		else:
 			return self._query_api_for_repositories_vulnerablities(repository_owner, repository_name, fields, after=end_cursor, current_results=current_results+nodes)
-			
+

@@ -1,7 +1,7 @@
 from datetime import datetime
 from packaging import version
 
-from utils import get_if_possible
+from pyDependabot.utils import get_if_possible
 
 
 class securityVulnerability(object):
