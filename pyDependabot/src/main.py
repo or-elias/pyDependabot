@@ -1,11 +1,11 @@
 from gql import gql, Client
 from gql.transport.requests import RequestsHTTPTransport
-from pyDependabot.repository_vulnerablity_alert_query import RepositoryVulnerablityAlertQuery
-from pyDependabot.repository_vulnerablity_alert_node import RepositoryVulnerablityAlert
+from .repository_vulnerablity_alert_query import RepositoryVulnerablityAlertQuery
+from .repository_vulnerablity_alert_node import RepositoryVulnerablityAlert
 
 
 class Dependabot():
-	def __init__(self, graphql_endpoint, auth_token, options):
+	def __init__(self, graphql_endpoint, auth_token, options={}):
 		transport = RequestsHTTPTransport( url=graphql_endpoint, headers = {"Authorization": f"bearer {auth_token}"} )
 		self.client = Client(transport=transport)
 		

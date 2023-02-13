@@ -1,7 +1,8 @@
 from datetime import datetime
 from packaging import version
 
-from pyDependabot.utils import get_if_possible
+from .utils import get_if_possible
+from .consts import NOT_POPULATED
 
 
 class securityVulnerability(object):
@@ -23,7 +24,7 @@ class Dismisser(object):
 		self.name = None
 		self.login = None
 		self.url = None
-
+		return 
 
 
 class RepositoryVulnerablityAlert(object):
@@ -35,38 +36,38 @@ class RepositoryVulnerablityAlert(object):
 	@property
 	def securityVulnerability(self):
 		security_vulnerability = securityVulnerability()
-		security_vulnerability.severity = get_if_possible("securityVulnerability.severity", self.node)
-		security_vulnerability.package_ecosystem = get_if_possible("securityVulnerability.package.ecosystem", self.node)
-		security_vulnerability.package_name = get_if_possible("securityVulnerability.package.name", self.node)
-		security_vulnerability.vulnerable_version_range = get_if_possible("securityVulnerability.vulnerableVersionRange", self.node)
-		security_vulnerability.advisory_cvss_score = get_if_possible("securityVulnerability.advisory.cvss.score", self.node)
-		security_vulnerability.advisory_summary = get_if_possible("securityVulnerability.advisory.summary", self.node)
+		security_vulnerability.severity = get_if_possible(self.node, "securityVulnerability.severity")
+		security_vulnerability.package_ecosystem = get_if_possible(self.node, "securityVulnerability.package.ecosystem")
+		security_vulnerability.package_name = get_if_possible(self.node, "securityVulnerability.package.name")
+		security_vulnerability.vulnerable_version_range = get_if_possible(self.node, "securityVulnerability.vulnerableVersionRange")
+		security_vulnerability.advisory_cvss_score = get_if_possible(self.node, "securityVulnerability.advisory.cvss.score")
+		security_vulnerability.advisory_summary = get_if_possible(self.node, "securityVulnerability.advisory.summary")
 		
-		first_patched_version = get_if_possible("securityVulnerability.firstPatchedVersion.identifier", self.node) 
-		security_vulnerability.first_patched_version = version.parse(first_patched_version) if first_patched_version is not None else None
+		first_patched_version = get_if_possible(self.node, "securityVulnerability.firstPatchedVersion.identifier") 
+		security_vulnerability.first_patched_version = version.parse(first_patched_version) if first_patched_version is not NOT_POPULATED else NOT_POPULATED
 		
-		updated_at = get_if_possible("securityVulnerability.updatedAt", self.node) 
-		security_vulnerability.updated_at = datetime.strptime(updated_at, "%Y-%m-%dT%H:%M:%SZ") if updated_at is not None else None
+		updated_at = get_if_possible(self.node, "securityVulnerability.updatedAt") 
+		security_vulnerability.updated_at = datetime.strptime(updated_at, "%Y-%m-%dT%H:%M:%SZ") if updated_at is not NOT_POPULATED else NOT_POPULATED
 		
 		return security_vulnerability
 
 	@property
 	def createdAt(self):
 		createdAt = self.node.get("createdAt")
-		return datetime.strptime(createdAt, "%Y-%m-%dT%H:%M:%SZ") if createdAt is not None else None
+		return datetime.strptime(createdAt, "%Y-%m-%dT%H:%M:%SZ") if createdAt is not NOT_POPULATED else NOT_POPULATED
 		
 	@property
 	def dismissedAt(self):
 		dismissedAt = self.node.get("dismissedAt")
-		return datetime.strptime(dismissedAt, "%Y-%m-%dT%H:%M:%SZ") if dismissedAt is not None else None
+		return datetime.strptime(dismissedAt, "%Y-%m-%dT%H:%M:%SZ") if dismissedAt is not NOT_POPULATED else NOT_POPULATED
 
 	@property
 	def dismisser(self):
 		dismisser = Dismisser()
-		dismisser.name = get_if_possible("dismisser.name", self.node)
-		dismisser.login = get_if_possible("dismisser.login", self.node)
-		dismisser.email = get_if_possible("dismisser.email", self.node)
-		dismisser.url = get_if_possible("dismisser.url", self.node)
+		dismisser.name = get_if_possible(self.node, "dismisser.name")
+		dismisser.login = get_if_possible(self.node, "dismisser.login")
+		dismisser.email = get_if_possible(self.node, "dismisser.email")
+		dismisser.url = get_if_possible(self.node, "dismisser.url")
 		return dismisser
 
 	
