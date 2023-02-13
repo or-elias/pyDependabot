@@ -5,11 +5,10 @@ from pyDependabot.repository_vulnerablity_alert_node import RepositoryVulnerabli
 
 
 class Dependabot():
-	def __init__(self, auth_token, graphql_endpoint, print_debug_log=False):
-		self.debug = print_debug_log
+	def __init__(self, graphql_endpoint, auth_token, options):
 		transport = RequestsHTTPTransport( url=graphql_endpoint, headers = {"Authorization": f"bearer {auth_token}"} )
 		self.client = Client(transport=transport)
-		print(f"Successfully created a graphql client") if self.debug is True else None
+		
 
 
 	def get_security_alerts(self, repository_owner: str, repository_name: str,
