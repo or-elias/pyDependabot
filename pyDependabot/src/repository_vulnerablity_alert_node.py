@@ -52,14 +52,14 @@ class RepositoryVulnerablityAlert(object):
 		return security_vulnerability
 
 	@property
-	def createdAt(self):
-		createdAt = self.node.get("createdAt")
-		return datetime.strptime(createdAt, "%Y-%m-%dT%H:%M:%SZ") if createdAt is not NOT_POPULATED else NOT_POPULATED
+	def created_at(self):
+		created_at = get_if_possible(self.node, "createdAt")
+		return datetime.strptime(created_at, "%Y-%m-%dT%H:%M:%SZ") if created_at is not NOT_POPULATED else NOT_POPULATED
 		
 	@property
-	def dismissedAt(self):
-		dismissedAt = self.node.get("dismissedAt")
-		return datetime.strptime(dismissedAt, "%Y-%m-%dT%H:%M:%SZ") if dismissedAt is not NOT_POPULATED else NOT_POPULATED
+	def dismissed_at(self):
+		dismissed_at = get_if_possible(self.node, "dismissedAt")
+		return datetime.strptime(dismissed_at, "%Y-%m-%dT%H:%M:%SZ") if dismissed_at is not NOT_POPULATED else NOT_POPULATED
 
 	@property
 	def dismisser(self):
@@ -73,37 +73,37 @@ class RepositoryVulnerablityAlert(object):
 	
 	@property
 	def state(self):
-		return self.node.get("state")
+		return get_if_possible(self.node, "state")
 		
 	@property
 	def vulnerable_manifest_path(self):
-		return self.node.get("vulnerableManifestPath")
+		return get_if_possible(self.node, "vulnerableManifestPath")
 		
 
 	@property
 	def vulnerable_requirements(self):
-		return self.node.get("vulnerableRequirements")
+		return get_if_possible(self.node, "vulnerableRequirements")
 
 	@property
 	def vulnerable_manifest_filename(self):
-		return self.node.get("vulnerableManifestFilename")
+		return get_if_possible(self.node, "vulnerableManifestFilename")
 
 	@property
 	def dismiss_comment(self):
-		return self.node.get("dismissComment")
+		return get_if_possible(self.node, "dismissComment")
 
 	@property
 	def dismiss_reason(self):
-		print(self.node)
-		return self.node.get("dismissReason")
+		return get_if_possible(self.node, "dismissReason")
 	
 	@property
 	def fixed_at(self):
-		return self.node.get("fixedAtField")
+		fixed_at = get_if_possible(self.node, "fixedAt")
+		return datetime.strptime(fixed_at, "%Y-%m-%dT%H:%M:%SZ") if fixed_at is not NOT_POPULATED else NOT_POPULATED
 	
 	@property
 	def number(self):
-		return self.node.get("number")
+		return get_if_possible(self.node, "number")
 	
 	def __repr__(self):
 		return f"""(Repository:{self.repository_owner}/{self.repository_name}, Package:{self.securityVulnerability.package_name}:{self.securityVulnerability.severity}-severity)"""
