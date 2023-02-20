@@ -1,7 +1,3 @@
-# dissmiseedattt value is populated correcly, etc
-# all datetime objects are datetime
-# all sub values (like dismisser.name) are populated correctly
-# missing values are populated with NOT_POPULATED
 
 import sys; sys.path.append("..")
 from pyDependabot.src.repository_vulnerablity_alert_node import RepositoryVulnerablityAlert
