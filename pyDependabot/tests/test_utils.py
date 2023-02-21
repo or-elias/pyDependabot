@@ -1,6 +1,6 @@
 import sys; sys.path.append("..")
-from pyDependabot.src.utils import get_if_possible
-from pyDependabot.src.consts import NOT_POPULATED
+from pydependabot.utils import get_if_possible
+from pydependabot.consts import NOT_POPULATED
 
 
 

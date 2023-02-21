@@ -1,14 +1,13 @@
 from setuptools import setup, find_packages
 
 
-VERSION = '0.0.1'
 DESCRIPTION = "A python library to query and manage github's dependabot alerts"
-LONG_DESCRIPTION = "A python package to query and manage github's dependabot alerts"
+LONG_DESCRIPTION = "A python package to query and manage github's dependabot alerts."
 
 # Setting up
 setup(
-    name="pyDependabot",
-    version=VERSION,
+    name="pydependabot",
+    version='0.8',
     author="Or1337 (Or Elias)",
     author_email="<orelias.tm@gmail.com>",
     description=DESCRIPTION,

@@ -1,5 +1,5 @@
 import sys; sys.path.append("..")
-from pyDependabot.src.main import Dependabot
+from pydependabot.main import Dependabot
 
 
 class TestClientThatReturnsResponseWithRecursion():

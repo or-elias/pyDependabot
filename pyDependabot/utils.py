@@ -1,4 +1,4 @@
-from .consts import NOT_POPULATED
+from pydependabot.consts import NOT_POPULATED
 
 class Logger(object):
     def __init__(self, print_debug_log):

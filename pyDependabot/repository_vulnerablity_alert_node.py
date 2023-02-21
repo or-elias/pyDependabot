@@ -1,8 +1,8 @@
 from datetime import datetime
 from packaging import version
 
-from .utils import get_if_possible
-from .consts import NOT_POPULATED
+from pydependabot.utils import get_if_possible
+from pydependabot.consts import NOT_POPULATED
 
 
 class securityVulnerability(object):

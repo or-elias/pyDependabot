@@ -1,8 +1,8 @@
 from gql import gql, Client
 from gql.transport.requests import RequestsHTTPTransport
-from .repository_vulnerablity_alert_query import RepositoryVulnerablityAlertQuery
-from .repository_vulnerablity_alert_node import RepositoryVulnerablityAlert
-from .utils import Logger
+from pydependabot.repository_vulnerablity_alert_query import RepositoryVulnerablityAlertQuery
+from pydependabot.repository_vulnerablity_alert_node import RepositoryVulnerablityAlert
+from pydependabot.utils import Logger
 
 
 class Dependabot():

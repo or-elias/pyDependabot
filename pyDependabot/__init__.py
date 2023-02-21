@@ -1,0 +1,1 @@
+from pydependabot.main import Dependabot

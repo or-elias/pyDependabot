@@ -1,6 +1,6 @@
 
 import sys; sys.path.append("..")
-from pyDependabot.src.repository_vulnerablity_alert_node import RepositoryVulnerablityAlert
+from pydependabot.repository_vulnerablity_alert_node import RepositoryVulnerablityAlert
 
 import datetime
 
